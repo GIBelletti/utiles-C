@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+	<Document>
+		<name>ir Rostov del Don, Ekaterinburgo</name>
+
+		<Placemark>
+			<name>Rostov del Don</name>
+			<Point>
+				<coordinates>39.716667, 47.233333</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Ekaterinburgo</name>
+			<Point>
+				<coordinates>60.583333, 56.833333</coordinates>
+			</Point>
+		</Placemark>
+
+		<Placemark>
+			<LineString>
+				<coordinates>39.716667,  47.233333 60.583333, 56.833333</coordinates>
+			</LineString>
+		</Placemark>
+	</Document>
+</kml>

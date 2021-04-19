@@ -1,6 +1,8 @@
-
-#include <stddef.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <unistd.h> 
+#include <stddef.h>
+#include <stdio.h>
 
 typedef struct heap heap_t;
 typedef int (*cmp_func_t) (const void *a, const void *b);
@@ -18,4 +20,3 @@ void *heap_desencolar(heap_t *heap);
 
 void heap_sort(void *elementos[], size_t cant, cmp_func_t cmp);
 
-void pruebas_heap_alumno();

@@ -93,7 +93,7 @@ heap_t *heap_crear_arr(void *arreglo[], size_t n, cmp_func_t cmp){
 	heap_nuevo->cant_max = n;
 	heap_nuevo->comparar = cmp;
 	ssize_t pos = posicion_padre(n - 1);//toma +- desde el ultimo "nodo" con al menos un hijo
-	while (pos >= 0){
+	while (pos >= (pos/2)){
 		downheap(heap_nuevo, (size_t)pos);
 		pos--;
 	}

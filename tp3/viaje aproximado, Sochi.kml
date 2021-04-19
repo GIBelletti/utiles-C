@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+	<Document>
+		<name>viaje aproximado, Sochi</name>
+
+		<Placemark>
+			<name>Sochi</name>
+			<Point>
+				<coordinates>39.720278, 43.585278</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Volgogrado</name>
+			<Point>
+				<coordinates>44.483333, 48.700000</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kazan</name>
+			<Point>
+				<coordinates>49.114444, 55.790833</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Nizhni Novgorod</name>
+			<Point>
+				<coordinates>44.007500, 56.326944</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Ekaterinburgo</name>
+			<Point>
+				<coordinates>60.583333, 56.833333</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kaliningrado</name>
+			<Point>
+				<coordinates>20.500000, 54.716667</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>San Petesburgo</name>
+			<Point>
+				<coordinates>30.316667, 59.950000</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Saransk</name>
+			<Point>
+				<coordinates>45.183333, 54.183333</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Samara</name>
+			<Point>
+				<coordinates>50.116667, 53.183333</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Moscu</name>
+			<Point>
+				<coordinates>37.617778, 55.755833</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Rostov del Don</name>
+			<Point>
+				<coordinates>39.716667, 47.233333</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Sochi</name>
+			<Point>
+				<coordinates>39.720278, 43.585278</coordinates>
+			</Point>
+		</Placemark>
+
+		<Placemark>
+			<LineString>
+				<coordinates>39.720278,  43.585278 44.483333, 48.700000</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>44.483333,  48.700000 49.114444, 55.790833</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>49.114444,  55.790833 44.007500, 56.326944</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>44.007500,  56.326944 60.583333, 56.833333</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>60.583333,  56.833333 20.500000, 54.716667</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>20.500000,  54.716667 30.316667, 59.950000</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>30.316667,  59.950000 45.183333, 54.183333</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>45.183333,  54.183333 50.116667, 53.183333</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>50.116667,  53.183333 37.617778, 55.755833</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>37.617778,  55.755833 39.716667, 47.233333</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>39.716667,  47.233333 39.720278, 43.585278</coordinates>
+			</LineString>
+		</Placemark>
+	</Document>
+</kml>

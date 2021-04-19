@@ -1,47 +1,11 @@
 #include "vector_dinamico.h"
+
+
 // Funciones del alumno.
+
 // Alumno: Belletti Gabriel Ignacio Padron: 100053
 
-/* Devuelve el tamaño del vector, Precondicion: el vector fue creado si este no fue creado devuelve "0" */
-size_t vector_obtener_tamanio(vector_t* vector){
-	if (vector != NULL){
-		return vector->tam;
-	}
-	return 0;
-}
 
-/* recive un vector y una posicion y verifica que esta sea valida (True) si no devuelve False */
-bool posicion_valida(vector_t* vector, size_t pos){
-	size_t tam = vector_obtener_tamanio(vector);
-	return(tam > 0 && pos < tam);
-}
-
-/* Destruye el vector, Precondicion: el vector fue creado, Postcondicion: se eliminaron todos los elementos del vector */
-void vector_destruir(vector_t* vector){
-	free(vector->datos);
-	free(vector);
-	return;
-}
-
-/* Almacena en valor el dato guardado en la posición pos del vector, Precondicion: el vector fue creado, Postcondicion: se almacenó en valor el dato en la posición pos. Devuelve false si la posición es inválida (fuera del rango del vector, que va de 0 a tamaño-1) */
-bool vector_obtener(vector_t* vector, size_t pos, int* valor){
-	if (posicion_valida(vector,pos)){
-		*valor = vector->datos[pos];
-		return true;
-	}
-	return false;
-}
-
-/* Almacena el valor en la posición "Pos", Precondicion: el vector fue creado, Postcondicion: se almacenó el valor en la posición pos. Devuelve false si la posición es inválida (fuera del rango del vector, que va de 0 a tamaño-1) y true si se guardó el valor con éxito. */
-bool vector_guardar(vector_t* vector, size_t pos, int valor){
-	if (posicion_valida(vector,pos)){
-		vector->datos[pos] = valor;
-		return true;
-	}
-	return false;
-}
-
-// ...
 // Funciones implementadas por la catedra.
 
 vector_t* vector_crear(size_t tam) {
@@ -58,6 +22,38 @@ vector_t* vector_crear(size_t tam) {
     }
     vector->tam = tam;
     return vector;
+}
+
+
+/* Destruye el vector Pre: el vector fue creado Post: se eliminaron todos los elementos del vector */
+void vector_destruir(vector_t* vector){
+	free(vector->datos);
+	free(vector);
+	return;
+}
+
+/* Almacena en valor el dato guardado en la posición pos del vector Pre: el vector fue creado Post: se almacenó en valor el dato en la posición pos. Devuelve false si la posición es inválida (fuera del rango del vector, que va de 0 a tamaño-1) */
+bool vector_obtener(vector_t* vector, size_t pos, int* valor){
+	if (pos >= vector->tam){
+		return false;
+	}
+	*valor = vector->datos[pos];
+	return true;
+}
+
+/* Almacena el valor en la posición pos Pre: el vector fue creado Post: se almacenó el valor en la posición pos. Devuelve false si la posición es inválida (fuera del rango del vector, que va de 0 a tamaño-1) y true si se guardó el valor con éxito. */
+bool vector_guardar(vector_t* vector, size_t pos, int valor){
+	if (pos >= vector->tam){
+		return false;
+	}
+	vector->datos[pos] = valor;
+	return true;
+}
+
+// Devuelve el tamaño del vector
+// Pre: el vector fue creado
+size_t vector_obtener_tamanio(vector_t* vector){
+	return vector->tam;
 }
 
 bool vector_redimensionar(vector_t* vector, size_t tam_nuevo) {

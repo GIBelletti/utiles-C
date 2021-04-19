@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+	<Document>
+		<name>ir Moscu, Moscu</name>
+
+		<Placemark>
+			<name>Moscu</name>
+			<Point>
+				<coordinates>37.617778, 55.755833</coordinates>
+			</Point>
+		</Placemark>
+
+	</Document>
+</kml>

@@ -4,6 +4,7 @@
 #include <string.h>
 #include "lista.h"
 #include "hash.h"
+/* Alumno: Belletti Gabriel Ignacio Padron: 100053 Grupo: G38 Corrector: Jorge Collinet */
 /* CONSTANTES */
 const size_t CAPACIDAD_BASE = 10;
 const char NULO = '\0';
@@ -48,6 +49,35 @@ struct elemento{
 
 typedef struct elemento elemento_t;
 void redimensionar(hash_t* hash);
+
+/* dada una lista y una clave avanza sobre la lista y devuelve el elemnto destruyendolo o no de la lista, da NULL en caso de no encontrarse en la lista el elemnto o falla */
+elemento_t* dar_elemento(lista_t* lista, const char* clave, bool destruir){
+	if (lista == NULL || clave == NULL){
+		return NULL;
+	}
+	lista_iter_t* iter = lista_iter_crear(lista);
+	elemento_t* elemento = lista_iter_ver_actual(iter);
+	if (elemento == NULL){
+		lista_iter_destruir(iter);
+		return NULL;
+	}
+	while(strcmp(elemento->clave, clave) != 0){
+		if (!lista_iter_avanzar(iter)){
+			lista_iter_destruir(iter);
+			return NULL;
+		}
+		elemento = lista_iter_ver_actual(iter);
+		if (elemento == NULL){
+			lista_iter_destruir(iter);
+			return NULL;
+		}
+	}
+	if (destruir){
+		lista_iter_borrar(iter);
+	}
+	lista_iter_destruir(iter);
+	return elemento;
+}
 
 /* crea un elemento dandole clave y valor */
 elemento_t* crear_elemento(const char* clave,void* dato){
@@ -94,21 +124,15 @@ hash_t *hash_crear(hash_destruir_dato_t destruir_dato){
 /* Guarda un elemento en el hash, si la clave ya se encuentra en la estructura, la reemplaza. De no poder guardarlo devuelve false. Pre: La estructura hash fue inicializada Post: Se almacenó el par (clave, dato) */
 bool hash_guardar(hash_t *hash, const char *clave, void *dato){
 	size_t valor = RSHash(clave, (unsigned int)strlen(clave)) % hash->capacidad;
-	if (hash_pertenece(hash, clave)){
-		lista_iter_t* iter = lista_iter_crear(hash->arreglo[valor]);
-		elemento_t* elemento = lista_iter_ver_actual(iter);
-		while(strcmp(elemento->clave, clave) != 0){
-			lista_iter_avanzar(iter);
-			elemento = lista_iter_ver_actual(iter);
-		}
+	elemento_t* elemento = dar_elemento(hash->arreglo[valor],clave,false);
+	if (elemento != NULL){
 		if (hash->destruir != NULL){
 			hash->destruir(elemento->dato);
 		}
 		elemento->dato = dato;
-		lista_iter_destruir(iter);
 		return true;
 	}
-	elemento_t* elemento = crear_elemento(clave,dato);
+	elemento = crear_elemento(clave,dato);
 	if (elemento == NULL){return false;}
 	hash->cantidad++;
 	lista_insertar_ultimo(hash->arreglo[valor], elemento);
@@ -119,19 +143,12 @@ bool hash_guardar(hash_t *hash, const char *clave, void *dato){
 
 /* Borra un elemento del hash y devuelve el dato asociado.  Devuelve NULL si el dato no estaba. Pre: La estructura hash fue inicializada Post: El elemento fue borrado de la estructura y se lo devolvió, en el caso de que estuviera guardado. */
 void *hash_borrar(hash_t *hash, const char *clave){
-	if (!hash_pertenece(hash, clave)){
+	size_t valor = RSHash(clave, (unsigned int)strlen(clave)) % hash->capacidad;
+	elemento_t* elemento = dar_elemento(hash->arreglo[valor],clave,true);
+	if (elemento == NULL){//da null si no existe el elemento
 		return NULL;
 	}
-	size_t valor = RSHash(clave, (unsigned int)strlen(clave)) % hash->capacidad;
-	lista_iter_t* iter = lista_iter_crear(hash->arreglo[valor]);
-	elemento_t* elemento = lista_iter_ver_actual(iter);
-	while(strcmp(elemento->clave, clave) != 0){
-		lista_iter_avanzar(iter);
-		elemento = lista_iter_ver_actual(iter);
-	}
-	elemento = lista_iter_borrar(iter);
 	void* dato = elemento->dato;
-	lista_iter_destruir(iter);
 	hash->cantidad--;
 	/* redimension */
 	redimensionar(hash);
@@ -142,36 +159,22 @@ void *hash_borrar(hash_t *hash, const char *clave){
 
 /* Obtiene el valor de un elemento del hash, si la clave no se encuentra devuelve NULL. Pre: La estructura hash fue inicializada */
 void *hash_obtener(const hash_t *hash, const char *clave){
-	if (!hash_pertenece(hash, clave)){
+	size_t valor = RSHash(clave, (unsigned int)strlen(clave)) % hash->capacidad;
+	elemento_t* elemento = dar_elemento(hash->arreglo[valor],clave,false);
+	if (elemento == NULL){
 		return NULL;
 	}
-	size_t valor = RSHash(clave, (unsigned int)strlen(clave)) % hash->capacidad;
-	lista_iter_t* iter = lista_iter_crear(hash->arreglo[valor]);
-	elemento_t* elemento = lista_iter_ver_actual(iter);
-	while(strcmp(elemento->clave, clave) != 0){
-		lista_iter_avanzar(iter);
-		elemento = lista_iter_ver_actual(iter);
-	}
-	lista_iter_destruir(iter);
 	return elemento->dato;
 }
 
 /* Determina si clave pertenece o no al hash. Pre: La estructura hash fue inicializada */
 bool hash_pertenece(const hash_t *hash, const char *clave){
 	size_t valor = RSHash(clave, (unsigned int)strlen(clave)) % hash->capacidad;
-	lista_t* posible_lista = hash->arreglo[valor];
-	lista_iter_t* iter = lista_iter_crear(posible_lista);
-	elemento_t* elemento = NULL;
-	while (!lista_iter_al_final(iter)){
-		elemento = lista_iter_ver_actual(iter);
-		if (strcmp(elemento->clave, clave) == 0){
-			lista_iter_destruir(iter);
-			return true;
-		}
-		lista_iter_avanzar(iter);
+	elemento_t* elemento = dar_elemento(hash->arreglo[valor],clave,false);
+	if (elemento == NULL){
+		return false;
 	}
-	lista_iter_destruir(iter);
-	return false;
+	return true;
 }
 
 /* Devuelve la cantidad de elementos del hash. Pre: La estructura hash fue inicializada */
@@ -184,8 +187,7 @@ void hash_destruir(hash_t *hash){
 	if (hash == NULL){
 		return;
 	}
-	size_t contador = 0;
-	while (contador < hash->capacidad){
+	for (size_t contador = 0; contador < hash->capacidad; contador++){
 		lista_t* lista = hash->arreglo[contador];
 		while (!lista_esta_vacia(lista)){
 			elemento_t* elemento = lista_borrar_primero(lista);
@@ -197,7 +199,6 @@ void hash_destruir(hash_t *hash){
 			hash->cantidad--;
 		}
 		lista_destruir(lista,NULL);
-		contador++;
 	}
 	free(hash->arreglo);
 	free(hash);

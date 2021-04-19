@@ -1,3 +1,9 @@
+#include <stdbool.h>
+#include <stdlib.h>
+#include <unistd.h> 
+#include <stddef.h>
+#include <stdio.h>
+
 typedef struct heap heap_t;
 typedef int (*cmp_func_t) (const void *a, const void *b);
 

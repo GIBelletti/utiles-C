@@ -19,4 +19,7 @@ char** split(const char* str, char sep);
  */
 void free_strv(char* strv[]);
 
+/* recibe un arreglo de cadenas terminado en NULL y un caracter y devuelve una cadena concatenando todas las cadenas del arreglo con el caracter recivido */
+char* join(char** arreglo,char caracter);
+
 #endif  // STRUTIL_H

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+	<Document>
+		<name>ir Moscu, Saransk</name>
+
+		<Placemark>
+			<name>Moscu</name>
+			<Point>
+				<coordinates>37.617778, 55.755833</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Samara</name>
+			<Point>
+				<coordinates>50.116667, 53.183333</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Saransk</name>
+			<Point>
+				<coordinates>45.183333, 54.183333</coordinates>
+			</Point>
+		</Placemark>
+
+		<Placemark>
+			<LineString>
+				<coordinates>37.617778,  55.755833 50.116667, 53.183333</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<LineString>
+				<coordinates>50.116667,  53.183333 45.183333, 54.183333</coordinates>
+			</LineString>
+		</Placemark>
+	</Document>
+</kml>

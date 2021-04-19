@@ -1,15 +1,17 @@
 #include "tp0.h"
-/*Alumno: Belletti Gabriel Ignacio Padron: 100053*/
+
 /* ******************************************************************
  *                     FUNCIONES A COMPLETAR
  * *****************************************************************/
 
+// Alumno: Belletti Gabriel Ignacio. Padron: 100053.
+
 /* swap() intercambia dos valores enteros.
  */
 void swap (int* x, int* y) {
-	int valor_de_x = *x;
+	int auxiliar = *x;
 	*x = *y;
-	*y = valor_de_x;
+	*y = auxiliar;
 	return;
 }
 
@@ -20,13 +22,14 @@ int maximo(int vector[], int n) {
 	if (n == 0){
 		return -1;
 	}
-	int max = 0;
-	for (int i = 1;i < n;i++){
-		if (vector[i] > vector[max]){
-			max = i;
+	int pos_maximo = 0;
+	//la posicion del maximo empieza desde 0 asi que comparo a partir de 1
+	for (int i = 1; i < n; i++){
+		if (vector[i] > vector[pos_maximo]){
+			pos_maximo = i;
 		}
 	}
-	return max;
+	return pos_maximo;
 }
 
 /* La función comparar recibe dos vectores y sus respectivas longitudes
@@ -59,11 +62,10 @@ int comparar(int vector1[], int n1, int vector2[], int n2) {
  * selección.
  */
 void seleccion(int vector[], int n) {
-	for (int i = n-1;i > 0;i--){
-		int max = maximo(vector, i+1);
-		if (max >= 0){
-			swap(&vector[max],&vector[i]);
-		}
+	//vector de 0 o 1 elemento ya estan ordenados
+	for (int i = n-1; i > 0; i--){
+		int pos_max = maximo(vector,i+1);
+		swap(&vector[i],&vector[pos_max]);
 	}
 	return;
 }

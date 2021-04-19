@@ -44,7 +44,9 @@ bool pila_redimensionar(pila_t *pila, size_t capacidad_nueva) {
 /* recibe un puntero a un elemento y otro a una pila y agrega en los datos de la pila la direccion de memoria al elemento recibido, si la cantidad iguala la capacidad antes de agregar el dato se redimencionara la pila para aumentar su capacidad, devuelve false en caso de error */
 bool pila_apilar(pila_t *pila,void* elemento){
 	if (pila->cantidad * REDIMENCION_INCREMENTAR_D >= pila->capacidad * REDIMENCION_INCREMENTAR_M){
-		pila_redimensionar(pila, pila->capacidad * 2);
+		if (!pila_redimensionar(pila, pila->capacidad * 2) && pila->cantidad == pila->capacidad){
+			return false;
+		}
 	}
 	pila->datos[pila->cantidad] = elemento;
 	pila->cantidad += 1;

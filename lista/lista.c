@@ -49,7 +49,7 @@ lista_t *lista_crear(void){
 
 /* recive una lista y si esta esta vacia devuelve true */
 bool lista_esta_vacia(const lista_t *lista){
-	return (lista->cantidad == 0);
+	return (lista->cantidad == 0 && lista->primero == NULL && lista->ultimo == NULL);
 }
 
 /* recive una lista y un dato e inserta este al comienzo de la lista, devuelve true si se completo con exito */
@@ -91,6 +91,9 @@ void *lista_borrar_primero(lista_t *lista){
 	nodo_t* desechar = lista->primero;
 	void* valor = desechar->dato;
 	lista->primero = desechar->siguiente;
+	if (lista->primero == NULL){//caso de que se borre el ultimo
+		lista->ultimo = NULL;
+	}
 	free(desechar);
 	lista->cantidad -= 1;
 	return valor;
@@ -120,16 +123,10 @@ size_t lista_largo(const lista_t *lista){
 /* recive una lista y una funcion y destruye la lista y los datos con la funcion recibida */
 void lista_destruir(lista_t *lista, void (*destruir_dato)(void *)){
 	while (!lista_esta_vacia(lista)){
-		nodo_t* desechar = lista->primero;
+		void* dato = lista_borrar_primero(lista);
 		if(destruir_dato != NULL){
-			destruir_dato(desechar->dato);
+			destruir_dato(dato);
 		}
-		if(lista->cantidad == 1){
-			lista->ultimo = NULL;
-		}
-		lista->primero = desechar->siguiente;
-		free(desechar);
-		lista->cantidad -= 1;
 	}
 	free(lista);
 	return;

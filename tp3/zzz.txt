@@ -1,0 +1,9 @@
+itinerario ejemplo_recomendaciones.csv
+reducir_caminos destino.csv
+ir Moscu, Saransk
+viaje aproximado, Sochi
+viaje optimo, Sochi
+ir Rostov del Don, Ekaterinburgo
+viaje aproximado, Kazan
+viaje aproximado, Rostov del Don
+viaje optimo, Kazan
